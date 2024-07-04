@@ -1,9 +1,14 @@
 import moment from "moment";
-import { BsThreeDotsVertical } from "react-icons/bs";
+import { MdEdit } from "react-icons/md";
 import { FaThumbsUp } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 
+import { useDispatch } from "react-redux";
+
+import { deletePost, likePost } from "../../../actions/posts";
+
 function Post({ post, setCurrentId }) {
+  const dispatch = useDispatch();
   return (
     <div className="w-[32%] h-96 shadow-xl bg-purple-100 rounded-xl flex flex-col justify-between items-center gap-2 overflow-hidden pb-6">
       <div className="w-full h-[50%] bg-green-200 overflow-hidden relative">
@@ -22,8 +27,11 @@ function Post({ post, setCurrentId }) {
             </p>
           </div>
           <div className="w-[40%] h-auto flex items-center justify-end">
-            <button className="text-white text-2xl" onClick={() => setCurrentId(post._id)}>
-              <BsThreeDotsVertical />
+            <button
+              className="text-white text-2xl"
+              onClick={() => setCurrentId(post._id)}
+            >
+              <MdEdit />
             </button>
           </div>
         </div>
@@ -38,13 +46,19 @@ function Post({ post, setCurrentId }) {
         {post.message}
       </div>
       <div className="w-full h-auto px-6 pt-3 flex items-center justify-between">
-        <button className="text-blue-500 flex" onClick={() => {}}>
+        <button
+          className="text-blue-500 flex"
+          onClick={() => dispatch(likePost(post._id))}
+        >
           <FaThumbsUp />
           <span className="leading-none text-base font-semibold">
             &nbsp;&nbsp;{post.likeCount}
           </span>
         </button>
-        <button className="text-red-500 flex" onClick={() => {}}>
+        <button
+          className="text-red-500 flex"
+          onClick={() => dispatch(deletePost(post._id))}
+        >
           <MdDelete />
           <span className="leading-none text-base font-semibold">
             &nbsp;Delete

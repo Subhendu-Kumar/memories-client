@@ -103,7 +103,7 @@ function Form({ setCurrentId, currentId }) {
             className="w-full h-8 bg-blue-100 rounded-lg focus:outline-none focus:ring-0 p-2 text-zinc-600"
             placeholder="Enter tags"
             value={postData.tags}
-            onChange={(e) => setPostData({ ...postData, tags: e.target.value })}
+            onChange={(e) => setPostData({ ...postData, tags: e.target.value.split(',') })}
           />
         </div>
         <div className="w-full h-auto">
