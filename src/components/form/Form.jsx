@@ -41,7 +41,7 @@ function Form({ setCurrentId, currentId }) {
     });
   };
   return (
-    <div className="w-[30%] h-auto border-2 border-green-400 p-2">
+    <div className="w-[30%] h-auto p-2 max-sm:w-full">
       <form
         action=""
         onSubmit={handelSubmit}

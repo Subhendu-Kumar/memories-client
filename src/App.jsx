@@ -17,7 +17,7 @@ function App() {
   return (
     <div className="w-full min-h-screen bg-blue-100">
       <Header />
-      <div className="w-full h-auto flex justify-evenly items-start gap-4 border-2 border-red-500 px-20 p-4">
+      <div className="w-full h-auto flex max-sm:flex-col-reverse max-sm:px-2 justify-evenly items-start gap-4 px-20 p-4">
         <Posts setCurrentId={setCurrentId} />
         <Form currentId={currentId} setCurrentId={setCurrentId} />
       </div>

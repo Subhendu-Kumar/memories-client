@@ -10,7 +10,7 @@ import { deletePost, likePost } from "../../../actions/posts";
 function Post({ post, setCurrentId }) {
   const dispatch = useDispatch();
   return (
-    <div className="w-[32%] h-96 shadow-xl bg-purple-100 rounded-xl flex flex-col justify-between items-center gap-2 overflow-hidden pb-6">
+    <div className="w-[32%] h-96 shadow-xl bg-purple-100 rounded-xl flex flex-col justify-between items-center gap-2 overflow-hidden pb-6 max-sm:w-full">
       <div className="w-full h-[50%] bg-green-200 overflow-hidden relative">
         <img
           src={post.selectedFile}
