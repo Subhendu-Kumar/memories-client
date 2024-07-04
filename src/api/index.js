@@ -1,6 +1,7 @@
 import axios from "axios";
+import { NEXT_PUBLIC_URL } from "../config";
 
-const URL = "http://localhost:5000";
+const URL = NEXT_PUBLIC_URL;
 
 export const fetchPosts = () => axios.get(`${URL}/posts`);
 export const createPost = (newPost) => axios.post(`${URL}/posts`, newPost);
