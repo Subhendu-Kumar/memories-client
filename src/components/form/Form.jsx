@@ -23,6 +23,15 @@ function Form({ setCurrentId, currentId }) {
   }, [post]);
   const handelSubmit = (e) => {
     e.preventDefault();
+    if (
+      !postData.creator ||
+      !postData.title ||
+      !postData.tags ||
+      !postData.selectedFile
+    ) {
+      alert("Please fill in all Required! fields");
+      return;
+    }
     if (currentId) {
       dispatch(updatePost(currentId, postData));
     } else {
@@ -53,7 +62,9 @@ function Form({ setCurrentId, currentId }) {
           {currentId ? "Editing" : "Creating"} a Memory
         </p>
         <div className="w-full h-auto">
-          <p className="text-sm font-semibold text-zinc-800">Creator:</p>
+          <p className="text-sm font-semibold text-zinc-800">
+            Creator:<span className="text-red-600">*</span>
+          </p>
           <input
             type="text"
             name="creator"
@@ -64,10 +75,13 @@ function Form({ setCurrentId, currentId }) {
             onChange={(e) =>
               setPostData({ ...postData, creator: e.target.value })
             }
+            required
           />
         </div>
         <div className="w-full h-auto">
-          <p className="text-sm font-semibold text-zinc-800">Title:</p>
+          <p className="text-sm font-semibold text-zinc-800">
+            Title:<span className="text-red-600">*</span>
+          </p>
           <input
             type="text"
             name="title"
@@ -78,6 +92,7 @@ function Form({ setCurrentId, currentId }) {
             onChange={(e) =>
               setPostData({ ...postData, title: e.target.value })
             }
+            required
           />
         </div>
         <div className="w-full h-auto">
@@ -95,7 +110,9 @@ function Form({ setCurrentId, currentId }) {
           />
         </div>
         <div className="w-full h-auto">
-          <p className="text-sm font-semibold text-zinc-800">Tags:</p>
+          <p className="text-sm font-semibold text-zinc-800">
+            Tags:<span className="text-red-600">*</span>
+          </p>
           <input
             type="text"
             name="tags"
@@ -103,14 +120,20 @@ function Form({ setCurrentId, currentId }) {
             className="w-full h-8 bg-blue-100 rounded-lg focus:outline-none focus:ring-0 p-2 text-zinc-600"
             placeholder="Enter tags"
             value={postData.tags}
-            onChange={(e) => setPostData({ ...postData, tags: e.target.value.split(',') })}
+            onChange={(e) =>
+              setPostData({ ...postData, tags: e.target.value.split(",") })
+            }
+            required
           />
         </div>
         <div className="w-full h-auto">
-          <p className="text-sm font-semibold text-zinc-800">Image:</p>
+          <p className="text-sm font-semibold text-zinc-800">
+            Image:<span className="text-red-600">*</span>
+          </p>
           <FileBase
             type="file"
             multiple={false}
+            required
             onDone={({ base64 }) =>
               setPostData({ ...postData, selectedFile: base64 })
             }
