@@ -1,27 +1,41 @@
-import { useEffect, useState } from "react";
-import Form from "./components/form/Form";
+import {
+  Navigate,
+  Route,
+  BrowserRouter as Router,
+  Routes,
+} from "react-router-dom";
+import { useState } from "react";
+
 import Header from "./components/header/Header";
-import Posts from "./components/posts/Posts";
-
-import { useDispatch } from "react-redux";
-
-import { getPosts } from "./actions/posts";
+import Home from "./components/Home/Home";
+import Auth from "./components/Auth/Auth";
+import PostDetails from "./components/postDetails/PostDetails";
 
 function App() {
-  const dispatch = useDispatch();
-  const [currentId, setCurrentId] = useState(null);
-  useEffect(() => {
-    dispatch(getPosts());
-  }, [currentId, dispatch]);
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
 
   return (
-    <div className="w-full min-h-screen bg-blue-100">
-      <Header />
-      <div className="w-full h-auto flex max-sm:flex-col-reverse max-sm:px-2 justify-evenly items-start gap-4 px-20 p-4">
-        <Posts setCurrentId={setCurrentId} />
-        <Form currentId={currentId} setCurrentId={setCurrentId} />
+    <Router>
+      <div className="w-full min-h-screen bg-blue-50">
+        <Header user={user} setUser={setUser} />
+        <Routes>
+          <Route path={"/"} element={<Navigate to="/posts" />} />
+          <Route
+            path={"/posts"}
+            element={<Home user={user} setUser={setUser} />}
+          />
+          <Route
+            path={"/posts/search"}
+            element={<Home user={user} setUser={setUser} />}
+          />
+          <Route path={"/posts/:id"} element={<PostDetails />} />
+          <Route
+            path={"/auth"}
+            element={!user ? <Auth /> : <Navigate to={"/posts"} />}
+          />
+        </Routes>
       </div>
-    </div>
+    </Router>
   );
 }
 
